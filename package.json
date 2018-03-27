@@ -5,6 +5,8 @@
   "author": "Luke Vance <luke@cloud-elements.com>",
   "license": "MIT",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "fetch": "^1.1.0",
     "tabletojson": "^0.7.1"
   }
 }
