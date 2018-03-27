@@ -1,0 +1,10 @@
+{
+  "name": "fantasy-enrichment-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Luke Vance <luke@cloud-elements.com>",
+  "license": "MIT",
+  "dependencies": {
+    "tabletojson": "^0.7.1"
+  }
+}
