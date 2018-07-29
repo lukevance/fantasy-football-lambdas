@@ -41,6 +41,21 @@ const avgScoreToWinTeam = async (leagueId, teamId) => {
 
 }
 
+// theoretical min for weekly score
+const avg5thPlaceScore = async (leagueId) => {
+    const scoreBoardsEntireSeason = await scoreboardsOverPeriod(1, 13);
+    // loop through each week's scoreboard
+    const weekly5thScoreArray = scoreBoardsEntireSeason.map(weeklyScoreboard => {
+        const weeksScoresArray = weeklyScoreboard.gameSummaries.forEach(game => {
+            return {
+
+            }
+        })
+        return null;
+    })
+    return scoreBoardsEntireSeason
+}
+
 
 const test = async () => {
     const data = await avgWinningScoreLeague('286565');
