@@ -16,7 +16,7 @@
 // }]
 
 const R = require('ramda');
-const getWeekScoreboard = require('../src/espnReader/scoreboards').getWeekScoreboard;
+const getWeekScoreboard = require('./espnReader/scoreboards').getWeekScoreboard;
 const curry_getWeekScoreboard = R.curry(getWeekScoreboard);
 const getWeekScoreboardFromLeague = curry_getWeekScoreboard('286565');
 
