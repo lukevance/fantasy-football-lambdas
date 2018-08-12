@@ -21,29 +21,36 @@ const curry_getSingleTeamLineup = R.curry(getSingleTeamLineup);
 const getSingleTeamfromLeague = curry_getSingleTeamLineup('286565');
 const getWeeksForTeam = getSingleTeamfromLeague(7);
 
+const getPositionMap = require('./positionMap');
 
 const positionStatsOverPeriod = async (pos, timePeriodStart, timePeriodEnd) => {
     const timePeriod = R.range(timePeriodStart, timePeriodEnd + 1);
+    const positionMap = getPositionMap(pos);
+    // Cycle through timePeriod range to get scoreboard for each week
     const positionReview = await Promise.all(timePeriod.map( async week => {
         const weekDetails = await getWeeksForTeam(week);
+        // isolate player info
         const roster = weekDetails[0].slots;
-        const singlePosition = roster.filter(plyr => plyr.slotCategoryId === pos);
-        const simplePlayerStats = await Promise.all(singlePosition.map(plyr => {
+        // filter for requested active position only
+        const singlePosition = roster.filter(plyr => plyr.player.defaultPositionId === positionMap.defaultPositionId);
+        // console.info(singlePosition.length);
+        const simplePlayerStats = singlePosition.map(plyr => {
+        // console.info(plyr.player.firstName + plyr.player.lastName);
             return {
                 "name": `${plyr.player.firstName} ${plyr.player.lastName}`,
-                "games": {
-                    "week": week,
-                    "score": plyr.currentPeriodRealStats.appliedStatTotal
-                }
+                "week": week,
+                "score": plyr.currentPeriodRealStats.appliedStatTotal,
+                "active": Boolean(plyr.slotCategoryId === positionMap.slotCategoryId)
             }
-        }));
-        return simplePlayerStats[0];
+        });
+        return simplePlayerStats;
     }));
     return positionReview;
 }
 
 const results = async () => {
-    const data = await positionStatsOverPeriod(0, 1, 13);
+    const data = await positionStatsOverPeriod('QB', 1, 13);
     console.log(data);
 };
+
 results();
