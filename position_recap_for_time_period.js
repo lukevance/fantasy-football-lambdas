@@ -31,16 +31,17 @@ const positionStatsOverPeriod = async (pos, timePeriodStart, timePeriodEnd) => {
         const weekDetails = await getWeeksForTeam(week);
         // isolate player info
         const roster = weekDetails[0].slots;
+        // console.log(roster);
         // filter for requested active position only
         const singlePosition = roster.filter(plyr => plyr.player.defaultPositionId === positionMap.defaultPositionId);
-        // console.info(singlePosition.length);
+        // if (week === 1) console.info(singlePosition);
         const simplePlayerStats = singlePosition.map(plyr => {
         // console.info(plyr.player.firstName + plyr.player.lastName);
             return {
                 "name": `${plyr.player.firstName} ${plyr.player.lastName}`,
                 "week": week,
                 "score": plyr.currentPeriodRealStats.appliedStatTotal,
-                "active": Boolean(plyr.slotCategoryId === positionMap.slotCategoryId)
+                "active": Boolean(plyr.slotCategoryId === positionMap.slotCategoryId || plyr.slotCategoryId === positionMap.flex)
             }
         });
         return simplePlayerStats;
@@ -49,7 +50,7 @@ const positionStatsOverPeriod = async (pos, timePeriodStart, timePeriodEnd) => {
 }
 
 const results = async () => {
-    const data = await positionStatsOverPeriod('QB', 1, 13);
+    const data = await positionStatsOverPeriod('TE', 1, 13);
     console.log(data);
 };
 
