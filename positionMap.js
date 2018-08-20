@@ -28,6 +28,19 @@ module.exports = (position) => {
                 
             }
         }
+        case 'D': {
+            return {
+                slotCategoryId: 16,
+                defaultPositionId: 16
+                
+            }
+        }
+        case 'K': {
+            return {
+                slotCategoryId: 17,
+                defaultPositionId: 5
+            }
+        }
         // case 'FLEX': {
         //     return {
         //         slotCategoryId: 23,
