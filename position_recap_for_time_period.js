@@ -50,7 +50,7 @@ const positionStatsOverPeriod = async (pos, timePeriodStart, timePeriodEnd) => {
 }
 
 const results = async () => {
-    const data = await positionStatsOverPeriod('D', 1, 13);
+    const data = await positionStatsOverPeriod('QB', 1, 13);
     console.log(data);
 };
 
