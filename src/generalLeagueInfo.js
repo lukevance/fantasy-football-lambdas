@@ -4,8 +4,8 @@ const getTeamsList = require('./espnReader/leagueInfo');
 // accept leagueId param
 // GET http://games.espn.com/ffl/api/v2/standings?leagueId=286565&seasonId=2017
 
-const getLeagueInfo = async (leagueId) => {
-    const json = await getTeamsList(leagueId);
+const getLeagueInfo = async (leagueId, seasonId) => {
+    const json = await getTeamsList(leagueId, seasonId);
     // transform team data
     const teams = json.teams.map(team => {
         return {
@@ -14,9 +14,9 @@ const getLeagueInfo = async (leagueId) => {
             teamId: team.teamId
         }
     });
-    // console.log(teams);
-    return teams;
+    console.log(teams);
+    // return teams;
   }
 
-//   getLeagueInfo(286565);
-  module.exports = getLeagueInfo;
+  getLeagueInfo(286565);
+//   module.exports = getLeagueInfo;
