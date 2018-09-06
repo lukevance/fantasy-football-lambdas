@@ -1,17 +1,11 @@
 const R = require('ramda');
-const fetch = require('node-fetch');
+const getTeamsList = require('./espnReader/leagueInfo');
 
 // accept leagueId param
 // GET http://games.espn.com/ffl/api/v2/standings?leagueId=286565&seasonId=2017
 
-// simplify to team names and score
-
-// enhance with other data?
-
 const getLeagueInfo = async (leagueId) => {
-    const url = `http://games.espn.com/ffl/api/v2/standings?leagueId=${leagueId}`;
-    const res = await fetch(url);
-    const json = await res.json();
+    const json = await getTeamsList(leagueId);
     // transform team data
     const teams = json.teams.map(team => {
         return {
@@ -20,6 +14,7 @@ const getLeagueInfo = async (leagueId) => {
             teamId: team.teamId
         }
     });
+    // console.log(teams);
     return teams;
   }
 
