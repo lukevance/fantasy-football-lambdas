@@ -77,7 +77,7 @@ const gameSummary = async (leagueId) => {
 }
 
 // const test = async () => {
-//     const data = await gameSummary('286535').catch(err => err);
+//     const data = await gameSummary('286564').catch(err => err);
 //     console.log(data);
 // }
 // test();
