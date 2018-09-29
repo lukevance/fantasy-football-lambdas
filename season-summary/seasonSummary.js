@@ -7,7 +7,7 @@ const getleagueData = async (leagueId) => {
     const res = await fetch(url);
     const json = await res.json();
     if (json.metadata && json.teams) {
-        return json.teams
+        return json;
     } else {
         // console.log(json);
         throw Error(JSON.stringify(json));
@@ -50,8 +50,10 @@ const getLoser = (matchup) => {
     }
 }
 
-const allGamesPlayed = async (leagueId) => {
-    const teams = await getleagueData(leagueId);
+const allGamesPlayed = async (leagueData) => {
+    // const teams = await getleagueData(leagueId);
+    const teams = leagueData.teams;
+    // console.log(teams);
     let games = [];
     teams.forEach(team => {
         const played = team.scheduleItems.filter(item => item.matchups[0].outcome !== 0);
@@ -67,19 +69,30 @@ const allGamesPlayed = async (leagueId) => {
     return R.uniq(games);
 }
 
-const gameSummary = async (leagueId) => {
-    const games = await allGamesPlayed(leagueId);
+// const gameSummary = async (leagueId) => {
+//     const games = await allGamesPlayed(leagueId);
+//     return {
+//         averageWinningScore: await R.median(games.map(game => game.winner.score)),
+//         averageLosingScore: await R.median(games.map(game => game.loser.score)),
+//         games: games
+//     }
+// }
+
+const seasonSumary = async (leagueId) => {
+    const leagueData = await getleagueData(leagueId);
+    const games = await allGamesPlayed(leagueData);
     return {
         averageWinningScore: await R.median(games.map(game => game.winner.score)),
         averageLosingScore: await R.median(games.map(game => game.loser.score)),
-        games: games
+        gamesCompleted: games,
+        teams: leagueData.teams
     }
 }
 
 // const test = async () => {
-//     const data = await gameSummary('286564').catch(err => err);
+//     const data = await seasonSumary('286565').catch(err => err);
 //     console.log(data);
 // }
 // test();
 
-module.exports = gameSummary;
+module.exports = seasonSumary;
