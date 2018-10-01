@@ -4,7 +4,7 @@ exports.handler = async (event) => {
     // call season summary, check for errors from API
     if (event.pathParameters && event.pathParameters.hasOwnProperty('leagueId')){
         const data = await seasonSummary(event.pathParameters.leagueId).catch(err => err);
-        if (data.games){
+        if (data.gamesCompleted && data.teams){
             const response = {
                 statusCode: 200,
                 body: JSON.stringify(data)
