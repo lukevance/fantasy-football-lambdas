@@ -82,8 +82,8 @@ const seasonSumary = async (leagueId) => {
     const leagueData = await getleagueData(leagueId);
     const games = await allGamesPlayed(leagueData);
     return {
-        averageWinningScore: await R.median(games.map(game => game.winner.score)),
-        averageLosingScore: await R.median(games.map(game => game.loser.score)),
+        averageWinningScore: await R.mean(games.map(game => game.winner.score)),
+        averageLosingScore: await R.mean(games.map(game => game.loser.score)),
         gamesCompleted: games,
         teams: leagueData.teams
     }
