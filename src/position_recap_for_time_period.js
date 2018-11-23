@@ -41,7 +41,7 @@ const positionStatsOverPeriod = async (pos, timePeriodStart, timePeriodEnd) => {
                 "name": `${plyr.player.firstName} ${plyr.player.lastName}`,
                 "week": week,
                 "score": plyr.currentPeriodRealStats.appliedStatTotal,
-                "active": Boolean(plyr.slotCategoryId === positionMap.slotCategoryId || plyr.slotCategoryId === positionMap.flex)
+                "starter": Boolean(plyr.slotCategoryId === positionMap.slotCategoryId || plyr.slotCategoryId === positionMap.flex)
             }
         });
         return simplePlayerStats;
@@ -50,7 +50,7 @@ const positionStatsOverPeriod = async (pos, timePeriodStart, timePeriodEnd) => {
 }
 
 const results = async () => {
-    const data = await positionStatsOverPeriod('QB', 1, 13);
+    const data = await positionStatsOverPeriod('QB', 7, 11);
     console.log(data);
 };
 

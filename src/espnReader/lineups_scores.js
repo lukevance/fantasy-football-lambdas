@@ -6,8 +6,11 @@ const request = async (url, options) => {
     return json;
 }
 
-const getBoxScore = async (leagueId, teamId, scoringPeriodId) => {
-    const url = 'http://games.espn.com/ffl/api/v2/boxscore?leagueId=' + leagueId + '&teamId=' + teamId + '&scoringPeriodId=' + scoringPeriodId + '&seasonId=2017';
+const getBoxScore = async (leagueId, teamId, scoringPeriodId, seasonId) => {
+    const url = 'http://games.espn.com/ffl/api/v2/boxscore?leagueId=' + leagueId + '&teamId=' + teamId + '&scoringPeriodId=' + scoringPeriodId +  (seasonId ? `&seasonId=${seasonId}` : "");
+    // if (seasonId){
+    //     url +=  `&seasonId=${seasonId}`;
+    // }
     const res = await request(url);
     return res;
 }
